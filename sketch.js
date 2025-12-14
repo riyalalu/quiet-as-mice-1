@@ -2,8 +2,8 @@
 // AUDIO: Procedural Synth (Hum -> Bass -> Tension -> CLIMAX)
 // PHYSICS: Sporadic chaotic movement on scatter
 
-const cols = 60;
-const rows = 75;
+const cols = 80; // Increased from 60 to fill wider canvas
+const rows = 45; // Decreased from 75 to match 16:9 ratio
 
 let cnv;
 let circles = [];
@@ -66,7 +66,7 @@ function preload() {
 }
 
 function setup() {
-  cnv = createCanvas(1080, 1350);
+  cnv = createCanvas(1920, 1080); // 16:9 ratio (was 1080x1350)
   pixelDensity(1);
   circleSize = width / cols;
 
