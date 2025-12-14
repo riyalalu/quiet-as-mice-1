@@ -31,7 +31,7 @@ canvas {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   width: 100%; /* Fill container */
   height: auto;
-  aspect-ratio: 16 / 9;
+  /* Removed aspect-ratio - let canvas keep its natural ratio */
 }
 
 #instruction-bar {
