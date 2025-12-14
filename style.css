@@ -6,45 +6,56 @@
 
 body {
   display: flex;
+  flex-direction: column; /* Stack canvas and text vertically */
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #2a2a2a; /* Greyish black */
+  height: 100vh; /* Fill the screen exactly */
+  background-color: #2a2a2a; 
   font-family: 'Courier New', monospace;
-  overflow: hidden;
-  padding: 40px; /* Padding around everything */
+  overflow: hidden; /* Prevent scrolling */
+  padding: 20px; /* The requested 20px padding */
 }
 
+/* This container ensures p5 doesn't mess up flexbox alignment */
 #canvas-container {
-  position: relative;
-  background-color: #2a2a2a;
-  width: 100%;
-  max-width: 1080px; /* Match canvas max-width */
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 30px; /* Space between canvas and text */
+  flex-grow: 1; /* Take up available space */
+  width: 100%;
+  overflow: hidden; 
 }
 
 canvas {
   display: block;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  width: 100%; /* Fill container */
-  height: auto; /* Maintain aspect ratio */
+  
+  /* CRITICAL: Override p5.js inline styles to make it responsive */
+  width: auto !important;
+  height: auto !important;
+  
+  /* Constraints: Fits width, but max height leaves room for text + padding */
+  max-width: 100%;
+  max-height: calc(100vh - 100px); /* Screen height minus space for text/padding */
+  
+  /* Ensures the image keeps its ratio (1080x1350) without distortion */
+  object-fit: contain; 
 }
 
 #instruction-bar {
+  /* Position relatively now, below the canvas */
   position: relative;
-  background: none;
-  padding: 0;
-  font-size: 28px;
+  margin-top: 15px;
+  height: 40px; /* Fixed height for the text area */
+  
+  text-align: center;
+  font-size: 24px; /* Slightly smaller to fit better on small screens */
   font-weight: bold;
   letter-spacing: 3px;
-  color: #006b59;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  color: #006b59; 
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
   user-select: none;
-  text-align: center;
+  z-index: 1000;
 }
 
 .pulsing {
@@ -53,11 +64,11 @@ canvas {
 
 @keyframes pulse {
   0%, 100% {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    transform: scale(1.08);
-    opacity: 0.85;
+    opacity: 0.7;
+    transform: scale(1.05);
   }
 }
