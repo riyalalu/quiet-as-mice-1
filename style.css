@@ -1,3 +1,4 @@
+/* Reset margins */
 * {
   margin: 0;
   padding: 0;
@@ -5,55 +6,64 @@
 }
 
 body {
+  /* Layout: Vertical Column */
   display: flex;
-  flex-direction: column; /* Stack canvas and text vertically */
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Fill the screen exactly */
-  background-color: #2a2a2a; 
+  flex-direction: column;
+  align-items: center;     /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  
+  /* Dimensions */
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* No scrolling */
+  
+  /* Styling */
+  background-color: #2a2a2a;
   font-family: 'Courier New', monospace;
-  overflow: hidden; /* Prevent scrolling */
-  padding: 20px; /* The requested 20px padding */
+  
+  /* "Reduce top padding by 5%" - We add padding to bottom to push center up */
+  padding-bottom: 5vh; 
 }
 
-/* This container ensures p5 doesn't mess up flexbox alignment */
+/* Wrapper for the canvas to control its size */
 #canvas-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1; /* Take up available space */
+  
   width: 100%;
-  overflow: hidden; 
+  /* Restrict canvas height so there is always room for text below */
+  max-height: 85vh; 
+  margin-bottom: 10px;
 }
 
 canvas {
   display: block;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
   
-  /* CRITICAL: Override p5.js inline styles to make it responsive */
+  /* Override p5.js fixed sizes to make it responsive */
   width: auto !important;
   height: auto !important;
   
-  /* Constraints: Fits width, but max height leaves room for text + padding */
-  max-width: 100%;
-  max-height: calc(100vh - 100px); /* Screen height minus space for text/padding */
+  /* Constraints: Fit within container, maintain aspect ratio */
+  max-width: 90vw;
+  max-height: 100%; 
+  object-fit: contain;
   
-  /* Ensures the image keeps its ratio (1080x1350) without distortion */
-  object-fit: contain; 
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
+/* Instruction Text */
 #instruction-bar {
-  /* Position relatively now, below the canvas */
-  position: relative;
-  margin-top: 15px;
-  height: 40px; /* Fixed height for the text area */
-  
   text-align: center;
-  font-size: 24px; /* Slightly smaller to fit better on small screens */
+  width: 100%;
+  height: 40px; /* Fixed height to prevent jumping */
+  
+  font-size: 24px;
   font-weight: bold;
   letter-spacing: 3px;
-  color: #006b59; 
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+  color: #006b59;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  
   user-select: none;
   z-index: 1000;
 }
@@ -63,12 +73,6 @@ canvas {
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.05);
-  }
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
 }
