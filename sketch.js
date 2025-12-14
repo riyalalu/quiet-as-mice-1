@@ -66,12 +66,11 @@ function preload() {
 }
 
 function setup() {
-  // 1. Create the canvas
-  let canvas = createCanvas(1080, 1350);
+  // 1. Create Canvas
+  let cnv = createCanvas(1080, 1350);
   
-  // 2. IMPORTANT: Attach canvas to a specific container if you add one to HTML
-  // (Optional but good practice, otherwise p5 appends it to body)
-  // If you don't edit HTML, p5 appends to body, which works with the new CSS too.
+  // 2. IMPORTANT: Put canvas inside the CSS container
+  cnv.parent('canvas-container');
   
   pixelDensity(1);
   circleSize = width / cols;
