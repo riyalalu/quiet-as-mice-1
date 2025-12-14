@@ -66,16 +66,18 @@ function preload() {
 }
 
 function setup() {
-  // 1. Create Canvas
+  // 1. Create the canvas
   let cnv = createCanvas(1080, 1350);
   
-  // 2. IMPORTANT: Put canvas inside the CSS container
-  cnv.parent('canvas-container');
-  
+  // 2. CRITICAL: Attach it to the wrapper div so CSS controls it
+  cnv.parent('canvas-wrapper');
+
   pixelDensity(1);
   circleSize = width / cols;
 
   instructionDiv = select('#instruction-bar');
+
+  // ... rest of your setup code ...
 
   // Process Images
   let imgRatio = img.width / img.height;
