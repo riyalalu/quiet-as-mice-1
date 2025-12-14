@@ -1,71 +1,67 @@
-/* Reset margins */
+/* Remove all default spacing */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  /* Layout: Vertical Column */
-  display: flex;
-  flex-direction: column;
-  align-items: center;     /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  
-  /* Dimensions */
-  min-height: 100vh;
-  width: 100vw;
-  overflow: hidden; /* No scrolling */
-  
-  /* Styling */
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Disable scrolling completely */
   background-color: #2a2a2a;
-  font-family: 'Courier New', monospace;
-  
-  /* "Reduce top padding by 5%" - We add padding to bottom to push center up */
-  padding-bottom: 5vh; 
 }
 
-/* Wrapper for the canvas to control its size */
-#canvas-container {
+body {
+  /* Flexbox Vertical Column: This forces items to stack Top-to-Bottom */
+  display: flex;
+  flex-direction: column;
+  
+  /* Perfect Center Alignment */
+  justify-content: center;
+  align-items: center;
+}
+
+/* 1. Canvas Wrapper
+   Constrains the canvas so it doesn't push the text off-screen.
+   max-height: 80vh means it takes up 80% of screen height max. */
+#canvas-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  
   width: 100%;
-  /* Restrict canvas height so there is always room for text below */
-  max-height: 85vh; 
-  margin-bottom: 10px;
+  height: 80vh; /* Leave 20% height for text and padding */
+  margin-bottom: 20px; /* Space between canvas and text */
 }
 
+/* 2. The Canvas Itself */
 canvas {
   display: block;
-  
-  /* Override p5.js fixed sizes to make it responsive */
+  /* These !important tags override p5.js inline styles to allow resizing */
   width: auto !important;
   height: auto !important;
   
-  /* Constraints: Fit within container, maintain aspect ratio */
-  max-width: 90vw;
-  max-height: 100%; 
-  object-fit: contain;
+  /* This keeps the canvas inside the wrapper, maintaining aspect ratio */
+  max-width: 100%;
+  max-height: 100%;
   
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Instruction Text */
+/* 3. Instruction Text */
 #instruction-bar {
   text-align: center;
-  width: 100%;
-  height: 40px; /* Fixed height to prevent jumping */
-  
-  font-size: 24px;
+  font-family: 'Courier New', monospace;
+  font-size: 20px; /* Slightly smaller to ensure fit */
   font-weight: bold;
   letter-spacing: 3px;
   color: #006b59;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   
+  /* Prevent layout jumps */
+  height: 30px; 
+  line-height: 30px;
   user-select: none;
-  z-index: 1000;
 }
 
 .pulsing {
@@ -73,6 +69,6 @@ canvas {
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
 }
