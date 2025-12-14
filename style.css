@@ -29,9 +29,10 @@ body {
 canvas {
   display: block;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  width: 100%; /* Fill container */
+  max-width: 800px; /* Scaled down with padding */
+  width: auto;
   height: auto;
-  /* Removed aspect-ratio - let canvas keep its natural ratio */
+  max-height: 90vh; /* Don't exceed viewport height */
 }
 
 #instruction-bar {
